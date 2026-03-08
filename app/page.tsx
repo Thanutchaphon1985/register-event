@@ -28,14 +28,14 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
             <User className="w-8 h-8 text-primary-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your account to continue</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">ยินดีต้อนรับกลับมา</h1>
+          <p className="text-gray-600">เข้าสู่ระบบเพื่อดำเนินการต่อ</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
+              อีเมล
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -47,7 +47,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200"
-                placeholder="Enter your email"
+                placeholder="กรอกอีเมลของคุณ"
                 required
               />
             </div>
@@ -55,7 +55,7 @@ export default function LoginPage() {
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-              Password
+              รหัสผ่าน
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -67,7 +67,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200"
-                placeholder="Enter your password"
+                placeholder="กรอกรหัสผ่านของคุณ"
                 required
               />
               <button
@@ -92,11 +92,11 @@ export default function LoginPage() {
                 className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
-                Remember me
+                จดจำฉัน
               </label>
             </div>
             <a href="#" className="text-sm text-primary-600 hover:text-primary-500 font-medium">
-              Forgot password?
+              ลืมรหัสผ่าน?
             </a>
           </div>
 
@@ -105,7 +105,7 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Signing in...' : 'Sign In'}
+            {isLoading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
           </button>
         </form>
 
@@ -115,7 +115,7 @@ export default function LoginPage() {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+              <span className="px-2 bg-white text-gray-500">หรือดำเนินการต่อด้วย</span>
             </div>
           </div>
 
@@ -139,9 +139,9 @@ export default function LoginPage() {
         </div>
 
         <p className="mt-8 text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          ยังไม่มีบัญชี?{' '}
           <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
-            Sign up for free
+            สมัครสมาชิกฟรี
           </a>
         </p>
       </div>

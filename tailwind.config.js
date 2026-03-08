@@ -15,6 +15,10 @@ module.exports = {
           700: '#1d4ed8',
         }
       },
+      fontFamily: {
+        'thai': ['Sarabun', 'sans-serif'],
+        'prompt': ['Prompt', 'sans-serif'],
+      },
     },
   },
   plugins: [],
