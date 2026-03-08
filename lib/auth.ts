@@ -35,8 +35,15 @@ export function generateToken(user: AuthUser): string {
 
 export function verifyToken(token: string): AuthUser | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as AuthUser
-  } catch {
+    console.log('🔍 JWT_SECRET:', process.env.JWT_SECRET)
+    console.log('🔍 Token to verify:', token)
+    
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as AuthUser
+    console.log('🔍 Decoded token:', decoded)
+    
+    return decoded
+  } catch (error) {
+    console.log('🔍 Token verification failed:', error)
     return null
   }
 }

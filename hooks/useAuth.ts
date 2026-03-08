@@ -31,6 +31,16 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
+      // Only check auth if there's a token in cookies
+      const token = document.cookie.split(';').find(cookie => cookie.trim().startsWith('auth-token='))
+      
+      if (!token) {
+        console.log('🔍 No token found in cookies, skipping auth check')
+        setLoading(false)
+        return
+      }
+      
+      console.log('🔍 Token found, checking auth...')
       const response = await fetch('/api/auth/me')
       const data = await response.json()
       
@@ -46,6 +56,8 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
+      console.log('🔍 Starting login process...')
+      
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -54,17 +66,22 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       })
 
+      console.log('🔍 Login API response status:', response.status)
+      
       const data = await response.json()
+      console.log('🔍 Login API response data:', data)
       
       if (data.success) {
+        console.log('🔍 Login successful, setting user...')
         setUser(data.data.user)
         return true
       } else {
+        console.log('🔍 Login failed:', data.error)
         alert(data.error || 'การเข้าสู่ระบบล้มเหลว')
         return false
       }
     } catch (error) {
-      console.error('Login failed:', error)
+      console.error('🔍 Login failed with error:', error)
       alert('เกิดข้อผิดพลาดในการเชื่อมต่อ')
       return false
     }

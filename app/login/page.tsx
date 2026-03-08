@@ -15,11 +15,19 @@ export default function LoginPage() {
     e.preventDefault()
     setIsLoading(true)
     
+    console.log('🔍 Attempting login with:', email, password)
+    
     const success = await login(email, password)
+    
+    console.log('🔍 Login success:', success)
+    
     setIsLoading(false)
     
     if (success) {
+      console.log('🔍 Redirecting to dashboard...')
       window.location.href = '/dashboard'
+    } else {
+      console.log('🔍 Login failed, staying on page')
     }
   }
 
