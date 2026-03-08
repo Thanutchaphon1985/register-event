@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Sarabun } from 'next/font/google'
-import { AuthProvider } from '@/hooks/useAuth'
+import { AuthProvider } from '../hooks/useAuth'
 
 const sarabun = Sarabun({ 
   subsets: ['thai', 'latin'],

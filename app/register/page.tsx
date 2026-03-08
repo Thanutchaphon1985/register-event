@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Eye, EyeOff, Lock, Mail, User, Phone, Building } from 'lucide-react'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({

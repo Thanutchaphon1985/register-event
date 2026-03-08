@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '../../../hooks/useAuth'
 import { Calendar, User, Ticket, Clock } from 'lucide-react'
 
 export default function ParticipantDashboard() {

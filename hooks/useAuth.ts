@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import React from 'react'
 import { AuthUser } from '@/lib/auth'
 
 interface AuthContextType {
@@ -81,10 +82,10 @@ export function AuthProviderComponent({ children }: { children: ReactNode }) {
     loading
   }
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
+  return React.createElement(
+    AuthContext.Provider,
+    { value },
+    children
   )
 }
 

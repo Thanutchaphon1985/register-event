@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '../../../hooks/useAuth'
 import { Calendar, Users, TrendingUp, FileText } from 'lucide-react'
 
 export default function AdminDashboard() {
