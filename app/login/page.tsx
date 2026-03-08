@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function LoginPage() {
@@ -25,7 +26,8 @@ export default function LoginPage() {
     
     if (success) {
       console.log('🔍 Redirecting to dashboard...')
-      window.location.href = '/dashboard'
+      // ใช้ router.push แทน window.location.href
+      router.push('/dashboard')
     } else {
       console.log('🔍 Login failed, staying on page')
     }
