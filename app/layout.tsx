@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Sarabun } from 'next/font/google'
+import { AuthProvider } from '@/hooks/useAuth'
 
 const sarabun = Sarabun({ 
   subsets: ['thai', 'latin'],
@@ -8,8 +9,8 @@ const sarabun = Sarabun({
 })
 
 export const metadata: Metadata = {
-  title: 'หน้าเข้าสู่ระบบ',
-  description: 'หน้าเข้าสู่ระบบ Next.js ด้วย Tailwind CSS',
+  title: 'ระบบลงทะเบียนงานอีเวนต์',
+  description: 'ระบบลงทะเบียนงานอีเวนต์ภาษาไทยด้วย Next.js และ Tailwind CSS',
 }
 
 export default function RootLayout({
@@ -19,7 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="th">
-      <body className={sarabun.className}>{children}</body>
+      <body className={sarabun.className}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   )
 }

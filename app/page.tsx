@@ -2,23 +2,25 @@
 
 import { useState } from 'react'
 import { Eye, EyeOff, Lock, Mail, User } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Login attempt:', { email, password })
-      setIsLoading(false)
-      // Handle login logic here
-    }, 2000)
+    const success = await login(email, password)
+    setIsLoading(false)
+    
+    if (success) {
+      window.location.href = '/dashboard'
+    }
   }
 
   return (

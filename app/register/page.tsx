@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Eye, EyeOff, Lock, Mail, User, Phone, Building } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const { login } = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -34,12 +36,32 @@ export default function RegisterPage() {
       return
     }
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Registration attempt:', formData)
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+      
+      if (data.success) {
+        // Auto login after successful registration
+        const loginSuccess = await login(formData.email, formData.password)
+        if (loginSuccess) {
+          window.location.href = '/dashboard'
+        }
+      } else {
+        alert(data.error || 'การสมัครสมาชิกล้มเหลว')
+      }
+    } catch (error) {
+      console.error('Registration error:', error)
+      alert('เกิดข้อผิดพลาดในการสมัครสมาชิก')
+    } finally {
       setIsLoading(false)
-      // Handle registration logic here
-    }, 2000)
+    }
   }
 
   return (

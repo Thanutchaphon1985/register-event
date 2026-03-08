@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("PARTICIPANT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Profile information
+  profile   UserProfile?
+
+  // Relations
+  organizedEvents Event[]       @relation("EventOrganizer")
+  registrations Registration[]
+
+  @@map("users")
+}
+
+model UserProfile {
+  id         String  @id @default(cuid())
+  userId      String  @unique
+  company     String?
+  jobTitle    String?
+  phone       String?
+  bio         String?
+  
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model Event {
+  id                    String    @id @default(cuid())
+  title                 String
+  description            String
+  category              String
+  startDate             DateTime
+  endDate               DateTime
+  location              String
+  capacity              Int
+  registrationDeadline    DateTime
+  status                String    @default("DRAFT")
+  organizerId            String
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  // Relations
+  organizer     User           @relation("EventOrganizer", fields: [organizerId], references: [id])
+  registrations Registration[]
+  customFields  CustomField[]
+
+  @@map("events")
+}
+
+model CustomField {
+  id          String  @id @default(cuid())
+  eventId     String
+  name        String
+  type        String
+  required    Boolean @default(false)
+  options     String?  // JSON string for select/multi-select options
+  order       Int     @default(0)
+  
+  event       Event            @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  fieldValues RegistrationFieldValue[]
+
+  @@map("custom_fields")
+}
+
+model Registration {
+  id             String   @id @default(cuid())
+  eventId        String
+  participantId  String
+  status         String   @default("REGISTERED")
+  registeredAt   DateTime @default(now())
+  checkedInAt    DateTime?
+  
+  event         Event            @relation(fields: [eventId], references: [id])
+  participant   User             @relation(fields: [participantId], references: [id])
+  fieldValues   RegistrationFieldValue[]
+
+  @@map("registrations")
+}
+
+model RegistrationFieldValue {
+  id             String @id @default(cuid())
+  registrationId String
+  fieldId        String
+  value          String
+  
+  registration Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  field        CustomField   @relation(fields: [fieldId], references: [id])
+
+  @@map("registration_field_values")
+}
