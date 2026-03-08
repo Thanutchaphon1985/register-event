@@ -140,7 +140,7 @@ export default function LoginPage() {
 
         <p className="mt-8 text-center text-sm text-gray-600">
           ยังไม่มีบัญชี?{' '}
-          <a href="#" className="font-medium text-primary-600 hover:text-primary-500">
+          <a href="/register" className="font-medium text-primary-600 hover:text-primary-500">
             สมัครสมาชิกฟรี
           </a>
         </p>
